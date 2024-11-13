@@ -56,3 +56,18 @@ This project demonstrates the design of a hotel network in Cisco Packet Tracer w
   exit
   exit
   exit
+
+## Access Control List (ACL) to Block Access of Guest from Employee and Server
+
+- **Action:** Configure ACL on Router 1 to block guest VLAN (192.168.20.0/24) from accessing employee networks and the server.
+
+- **ACL Configuration Commands:**
+  ```plaintext
+  enable
+  configure terminal
+  access-list 100 deny ip 192.168.20.0 0.0.0.255 192.168.60.2 0.0.0.0   // Deny access to server 60.2
+  access-list 100 deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255   // Deny access to employee network 10
+  access-list 100 deny ip 192.168.20.0 0.0.0.255 192.168.30.0 0.0.0.255   // Deny access to employee network 30
+  access-list 100 permit ip any any   // Permit access to all other networks
+  interface f0/0.20
+  ip access-group 100 in
